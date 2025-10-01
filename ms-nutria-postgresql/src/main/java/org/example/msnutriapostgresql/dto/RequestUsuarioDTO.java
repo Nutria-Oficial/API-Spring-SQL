@@ -6,11 +6,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public record RequestUsuarioDTO(
-        @NotBlank
+        @NotBlank(message = "O nome deve ser informado")
         String nome,
-        @Email
+        @Email(message = "O email informado é inválido")
         String email,
-        @NotBlank
+        @NotBlank(message = "A senha deve ser informada")
         String senha,
         @Pattern(
                 regexp = "^\\(?\\d{2}\\)?\\s?9?\\d{4}-?\\d{4}$",
