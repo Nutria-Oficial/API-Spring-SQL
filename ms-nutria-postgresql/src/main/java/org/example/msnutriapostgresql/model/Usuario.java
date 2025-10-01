@@ -9,7 +9,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ncdusuario")
-    private Long id;
+    private Integer id;
     @Column(name = "cnmusuario")
     private String nome;
     @Column(name = "cemail")
@@ -26,11 +26,11 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

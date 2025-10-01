@@ -7,10 +7,13 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario,Integer> {
     @Procedure(procedureName = "proc_adicionar_usuario")
     void adicionarUsuario(@Param("usuario") String nome, @Param("email") String email, @Param("senha") String senha, @Param("telefone") String telefone, @Param("empresa") String empresa, @Param("foto") String foto);
     Usuario findTopByOrderByIdDesc();
-    Usuario findUsuarioById(Long id);
+    Optional<Usuario> findByEmail(String email);
+
 }
