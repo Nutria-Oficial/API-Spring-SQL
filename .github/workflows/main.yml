@@ -17,8 +17,8 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: Build sem testes
-        run: mvn -B -DskipTests package
+      - name: Build (sem testes unitários)
+        run: mvn -B package
 
   lint:
     runs-on: ubuntu-latest
@@ -29,8 +29,8 @@ jobs:
           distribution: temurin
           java-version: '21'
           cache: maven
-      - name: Checkstyle e Spotless
-        run: mvn -B -DskipTests spotless:check checkstyle:check
+      - name: Verificação de formatação e estilo
+        run: mvn -B spotless:check checkstyle:check
 
   dependency-scan:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
           java-version: '21'
           cache: maven
       - name: OWASP Dependency Check
-        run: mvn -B -DskipTests org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=8
+        run: mvn -B org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=8
 
   docker-smoke:
     runs-on: ubuntu-latest
