@@ -3,10 +3,12 @@ package org.example.msnutriapostgresql.service;
 import org.example.msnutriapostgresql.dto.RequestUsuarioDTO;
 import org.example.msnutriapostgresql.dto.ResponseUsuarioDTO;
 import org.example.msnutriapostgresql.dto.updatedto.*;
+import org.example.msnutriapostgresql.exception.DatabaseInsertException;
 import org.example.msnutriapostgresql.exception.DuplicateException;
 import org.example.msnutriapostgresql.exception.NotFoundException;
 import org.example.msnutriapostgresql.model.Usuario;
 import org.example.msnutriapostgresql.repository.UsuarioRepository;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -20,9 +22,23 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
     public ResponseUsuarioDTO cadastrarUsuario(RequestUsuarioDTO requestUsuarioDTO){
-        usuarioRepository.adicionarUsuario(requestUsuarioDTO.nome(), requestUsuarioDTO.email(), requestUsuarioDTO.senha(), requestUsuarioDTO.telefone(), requestUsuarioDTO.empresa(), requestUsuarioDTO.foto());
-        Usuario usuarioCadastrado = usuarioRepository.findTopByOrderByIdDesc();
-        return new ResponseUsuarioDTO(usuarioCadastrado.getNome(), usuarioCadastrado.getEmail(), usuarioCadastrado.getSenha(), usuarioCadastrado.getTelefone(), usuarioCadastrado.getEmpresa(), usuarioCadastrado.getFoto());
+        try {
+            usuarioRepository.adicionarUsuario(requestUsuarioDTO.nome(), requestUsuarioDTO.email(), requestUsuarioDTO.senha(), requestUsuarioDTO.telefone(), requestUsuarioDTO.empresa(), requestUsuarioDTO.foto());
+            Usuario usuarioCadastrado = usuarioRepository.findTopByOrderByIdDesc();
+            return new ResponseUsuarioDTO(usuarioCadastrado.getNome(), usuarioCadastrado.getEmail(), usuarioCadastrado.getSenha(), usuarioCadastrado.getTelefone(), usuarioCadastrado.getEmpresa(), usuarioCadastrado.getFoto());
+        }catch (DataAccessException dataAccessException){
+            String mensagem = dataAccessException.getMostSpecificCause().getMessage();
+            String mensagemErroConflito = "Falha na operação: Já existe um usuário cadastrado";
+            String mensagemErroInserir = "Falha ao inserir, reconsidere visualizar seus parametros e atributos";
+
+            if (mensagem != null && mensagem.contains(mensagemErroConflito)) {
+                throw new DuplicateException(mensagemErroConflito);
+            }
+            if (mensagem != null && mensagem.contains(mensagemErroInserir)) {
+                throw new DatabaseInsertException(mensagemErroInserir);
+            }
+            throw dataAccessException;
+        }
     }
     public ResponseUsuarioDTO buscarUsuario(String email){
         Optional<Usuario> usuarioEncontrado = usuarioRepository.findByEmail(email);
