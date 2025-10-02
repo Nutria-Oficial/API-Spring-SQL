@@ -19,6 +19,7 @@ jobs:
 
       - name: Build (sem testes unitários)
         run: mvn -B package
+        working-directory: ./ms-nutria-postgresql
 
   lint:
     runs-on: ubuntu-latest
