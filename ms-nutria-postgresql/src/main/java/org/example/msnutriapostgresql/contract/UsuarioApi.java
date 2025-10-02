@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.example.msnutriapostgresql.dto.RequestUsuarioDTO;
 import org.example.msnutriapostgresql.dto.ResponseUsuarioDTO;
+import org.example.msnutriapostgresql.dto.exceptiondto.BadRequestDTO;
+import org.example.msnutriapostgresql.dto.exceptiondto.ErrorDTO;
 import org.example.msnutriapostgresql.dto.updatedto.*;
 import org.springframework.http.ResponseEntity;
 @Tag(name = "Usuário", description = "Gestão do usuário")
@@ -18,13 +20,12 @@ public interface UsuarioApi {
             @ApiResponse(responseCode = "201", description = "Usuário cadastrado no banco com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
             @ApiResponse(responseCode = "400", description = "Os dados fornecidos são inválidos",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Bad Request",
-                          "message": "O email informado é inválido"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BadRequestDTO.class ))),
+            @ApiResponse(responseCode = "409", description = "Conflito ao tentar inserir no banco",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class))),
+            @ApiResponse(responseCode = "422", description = "Erro ao tentar inserir as informações no banco",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
+
     })
     ResponseEntity<ResponseUsuarioDTO> cadastrarUsuario(RequestUsuarioDTO requestUsuarioDTO);
 
@@ -33,13 +34,7 @@ public interface UsuarioApi {
             @ApiResponse(responseCode = "200", description = "Usuário encontrado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
             @ApiResponse(responseCode = "404", description = "Não foi possivel encontrar o usuário",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Not Found",
-                          "message": "Usuário não encontrado"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     ResponseEntity<ResponseUsuarioDTO> buscarUsuario(String email);
 
@@ -47,14 +42,10 @@ public interface UsuarioApi {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Os dados fornecidos são inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BadRequestDTO.class ))),
             @ApiResponse(responseCode = "404", description = "Não foi possivel encontrar o usuário",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Not Found",
-                          "message": "Usuário não encontrado"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     ResponseEntity<ResponseUsuarioDTO> atualizarNomeUsuario( Integer id, NomeDTO nomeDTO);
 
@@ -62,14 +53,10 @@ public interface UsuarioApi {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Os dados fornecidos são inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BadRequestDTO.class ))),
             @ApiResponse(responseCode = "404", description = "Não foi possivel encontrar o usuário",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Not Found",
-                          "message": "Usuário não encontrado"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     ResponseEntity<ResponseUsuarioDTO> atualizarEmailUsuario(Integer id, EmailDTO emailDTO);
 
@@ -77,14 +64,10 @@ public interface UsuarioApi {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Os dados fornecidos são inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BadRequestDTO.class ))),
             @ApiResponse(responseCode = "404", description = "Não foi possivel encontrar o usuário",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Not Found",
-                          "message": "Usuário não encontrado"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     ResponseEntity<ResponseUsuarioDTO> atualizarTelefoneUsuario(Integer id, TelefoneDTO telefoneDTO);
 
@@ -92,28 +75,22 @@ public interface UsuarioApi {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Os dados fornecidos são inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BadRequestDTO.class ))),
             @ApiResponse(responseCode = "404", description = "Não foi possivel encontrar o usuário",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Not Found",
-                          "message": "Usuário não encontrado"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
+
     })
     ResponseEntity<ResponseUsuarioDTO> atualizarSenhaUsuario(Integer id, SenhaDTO senhaDTO);
     @Operation(summary = "Atualiza a empresa do usuário", description = "Recebe o nome da empresa para atualizar o nome da empresa do usuário")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Os dados fornecidos são inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BadRequestDTO.class ))),
             @ApiResponse(responseCode = "404", description = "Não foi possivel encontrar o usuário",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Not Found",
-                          "message": "Usuário não encontrado"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
+
     })
     ResponseEntity<ResponseUsuarioDTO> atualizarEmpresaUsuario(Integer id, EmpresaDTO empresaDTO);
 
@@ -121,14 +98,10 @@ public interface UsuarioApi {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ResponseUsuarioDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Os dados fornecidos são inválidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = BadRequestDTO.class ))),
             @ApiResponse(responseCode = "404", description = "Não foi possivel encontrar o usuário",
-                    content = @Content(mediaType = "application/json",  examples = @ExampleObject(value = """
-                        {
-                          "status": 400,
-                          "error": "Not Found",
-                          "message": "Usuário não encontrado"
-                        }
-                    """)))
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorDTO.class)))
     })
     ResponseEntity<ResponseUsuarioDTO> atualizarFotoUsuario(Integer id, FotoDTO fotoDTO);
 }
