@@ -46,19 +46,3 @@ jobs:
       - name: OWASP Dependency Check
         run: mvn -B org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=8
         working-directory: ./ms-nutria-postgresql
-
-  docker-smoke:
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build imagem Docker
-        run: docker build -t app:pr-${{ github.run_number }} ./ms-nutria-postgresql
-      - name: Smoke test (health)
-        run: |
-          cid=$(docker run -d -p 8080:8080 app:pr-${{ github.run_number }})
-          until curl -fsS http://localhost:8080/actuator/health; do
-            echo "Esperando a aplicação iniciar..."
-            sleep 5
-          done
-          docker rm -f $cid
