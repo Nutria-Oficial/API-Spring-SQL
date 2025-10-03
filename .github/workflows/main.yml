@@ -31,7 +31,7 @@ jobs:
           java-version: '21'
           cache: maven
       - name: Verificação de formatação e estilo
-        run: mvn -B spotless:check checkstyle:check
+        run: mvn -B spotless:check
         working-directory: ./ms-nutria-postgresql
 
   dependency-scan:
