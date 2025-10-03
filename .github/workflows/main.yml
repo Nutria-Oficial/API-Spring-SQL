@@ -57,6 +57,8 @@ jobs:
       - name: Smoke test (health)
         run: |
           cid=$(docker run -d -p 8080:8080 app:pr-${{ github.run_number }})
-          sleep 15
-          curl -fsS http://localhost:8080/actuator/health
+          until curl -fsS http://localhost:8080/actuator/health; do
+            echo "Esperando a aplicação iniciar..."
+            sleep 5
+          done
           docker rm -f $cid
