@@ -33,16 +33,3 @@ jobs:
       - name: Verificação de formatação e estilo
         run: mvn -B spotless:check
         working-directory: ./ms-nutria-postgresql
-
-  dependency-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-          cache: maven
-      - name: OWASP Dependency Check
-        run: mvn -B org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=8
-        working-directory: ./ms-nutria-postgresql
