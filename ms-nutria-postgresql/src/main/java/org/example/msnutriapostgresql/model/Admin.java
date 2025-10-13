@@ -8,21 +8,21 @@ import java.time.LocalDate;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "nCdAdmin")
+    @Column(name = "ncdadmin")
     private Integer id;
-    @Column(name = "cNmAdmin")
+    @Column(name = "cnmadmin")
     private String nome;
-    @Column(name = "cEmail")
+    @Column(name = "cemail")
     private String email;
-    @Column(name = "cSenha")
+    @Column(name = "csenha")
     private String senha;
-    @Column(name = "cTelefone")
+    @Column(name = "ctelefone")
     private String telefone;
-    @Column(name = "dNascimento")
+    @Column(name = "dnascimento")
     private LocalDate dataNascimento;
-    @Column(name = "cCargo")
+    @Column(name = "ccargo")
     private String cargo;
-    @Column(name = "cFoto")
+    @Column(name = "cfoto")
     private String foto;
 
     //getters e setters
