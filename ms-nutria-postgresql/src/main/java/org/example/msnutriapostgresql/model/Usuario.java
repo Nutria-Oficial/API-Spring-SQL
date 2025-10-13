@@ -28,7 +28,11 @@ public class Usuario {
   @Column(name = "cfoto")
   private String foto;
 
+  //construtor
+
   public Usuario() {}
+
+  //getters e setters
 
   public Integer getId() {
     return id;
