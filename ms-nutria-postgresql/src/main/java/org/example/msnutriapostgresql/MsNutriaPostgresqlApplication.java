@@ -6,11 +6,12 @@ import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurity
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 
-@SpringBootApplication(exclude = {
-        ReactiveSecurityAutoConfiguration.class,
-        ReactiveUserDetailsServiceAutoConfiguration.class,
-        UserDetailsServiceAutoConfiguration.class
-})
+@SpringBootApplication(
+    exclude = {
+      ReactiveSecurityAutoConfiguration.class,
+      ReactiveUserDetailsServiceAutoConfiguration.class,
+      UserDetailsServiceAutoConfiguration.class
+    })
 public class MsNutriaPostgresqlApplication {
 
   public static void main(String[] args) {

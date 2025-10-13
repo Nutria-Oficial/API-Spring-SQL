@@ -23,31 +23,34 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(authorize -> authorize
-                    .requestMatchers("/admin/**").hasRole("NUTRIA_ADMIN")
-                    .requestMatchers("/usuarios/**").hasAnyRole("NUTRIA_ADMIN", "NUTRIA")
-                    .anyRequest().authenticated()
-            )
-            .httpBasic(Customizer.withDefaults())
-            .exceptionHandling(exception -> exception
-                    .accessDeniedHandler(customAccessDeniedHandler)
-            );
+    http.csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(
+            authorize ->
+                authorize
+                    .requestMatchers("/admin/**")
+                    .hasRole("NUTRIA_ADMIN")
+                    .requestMatchers("/usuarios/**")
+                    .hasAnyRole("NUTRIA_ADMIN", "NUTRIA")
+                    .anyRequest()
+                    .authenticated())
+        .httpBasic(Customizer.withDefaults())
+        .exceptionHandling(exception -> exception.accessDeniedHandler(customAccessDeniedHandler));
     return http.build();
   }
 
   @Bean
   public InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder) {
-    UserDetails admin = User.withUsername("nutriaAdmin")
+    UserDetails admin =
+        User.withUsername("nutriaAdmin")
             .password(passwordEncoder.encode("nutriaAdmin123"))
             .roles("NUTRIA_ADMIN")
             .build();
-    UserDetails user = User.withUsername("nutria")
+    UserDetails user =
+        User.withUsername("nutria")
             .password(passwordEncoder.encode("nutria123"))
             .roles("NUTRIA")
             .build();
-    return new InMemoryUserDetailsManager(admin,user);
+    return new InMemoryUserDetailsManager(admin, user);
   }
 
   @Bean

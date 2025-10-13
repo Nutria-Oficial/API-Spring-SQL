@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin")
 public class AdminController implements AdminApi {
-    private final AdminService adminService;
+  private final AdminService adminService;
 
-    public AdminController(AdminService adminService) {
-        this.adminService = adminService;
-    }
+  public AdminController(AdminService adminService) {
+    this.adminService = adminService;
+  }
 
-    @Override
-    @GetMapping("/login")
-    public ResponseEntity<ResponseAdminDTO> loginAdmin(@RequestBody RequestAdminDTO requestAdminDTO) {
-        ResponseAdminDTO responseAdminDTO = adminService.loginAdmin(requestAdminDTO);
-        return new ResponseEntity<>(responseAdminDTO, HttpStatus.OK);
-    }
+  @Override
+  @GetMapping("/login")
+  public ResponseEntity<ResponseAdminDTO> loginAdmin(@RequestBody RequestAdminDTO requestAdminDTO) {
+    ResponseAdminDTO responseAdminDTO = adminService.loginAdmin(requestAdminDTO);
+    return new ResponseEntity<>(responseAdminDTO, HttpStatus.OK);
+  }
 }

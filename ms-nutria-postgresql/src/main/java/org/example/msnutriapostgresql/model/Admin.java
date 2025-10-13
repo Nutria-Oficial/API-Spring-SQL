@@ -1,93 +1,99 @@
 package org.example.msnutriapostgresql.model;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
 public class Admin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ncdadmin")
-    private Integer id;
-    @Column(name = "cnmadmin")
-    private String nome;
-    @Column(name = "cemail")
-    private String email;
-    @Column(name = "csenha")
-    private String senha;
-    @Column(name = "ctelefone")
-    private String telefone;
-    @Column(name = "dnascimento")
-    private LocalDate dataNascimento;
-    @Column(name = "ccargo")
-    private String cargo;
-    @Column(name = "cfoto")
-    private String foto;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ncdadmin")
+  private Integer id;
 
-    //getters e setters
+  @Column(name = "cnmadmin")
+  private String nome;
 
-    public Integer getId() {
-        return id;
-    }
+  @Column(name = "cemail")
+  private String email;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  @Column(name = "csenha")
+  private String senha;
 
-    public String getNome() {
-        return nome;
-    }
+  @Column(name = "ctelefone")
+  private String telefone;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  @Column(name = "dnascimento")
+  private LocalDate dataNascimento;
 
-    public String getEmail() {
-        return email;
-    }
+  @Column(name = "ccargo")
+  private String cargo;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  @Column(name = "cfoto")
+  private String foto;
 
-    public String getSenha() {
-        return senha;
-    }
+  // getters e setters
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public String getTelefone() {
-        return telefone;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+  public String getNome() {
+    return nome;
+  }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getCargo() {
-        return cargo;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
+  public String getSenha() {
+    return senha;
+  }
 
-    public String getFoto() {
-        return foto;
-    }
+  public void setSenha(String senha) {
+    this.senha = senha;
+  }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
+  public String getTelefone() {
+    return telefone;
+  }
+
+  public void setTelefone(String telefone) {
+    this.telefone = telefone;
+  }
+
+  public LocalDate getDataNascimento() {
+    return dataNascimento;
+  }
+
+  public void setDataNascimento(LocalDate dataNascimento) {
+    this.dataNascimento = dataNascimento;
+  }
+
+  public String getCargo() {
+    return cargo;
+  }
+
+  public void setCargo(String cargo) {
+    this.cargo = cargo;
+  }
+
+  public String getFoto() {
+    return foto;
+  }
+
+  public void setFoto(String foto) {
+    this.foto = foto;
+  }
 }

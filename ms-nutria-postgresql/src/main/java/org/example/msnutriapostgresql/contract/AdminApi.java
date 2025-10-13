@@ -13,24 +13,24 @@ import org.springframework.http.ResponseEntity;
 
 @Tag(name = "Admin", description = "Gestão do admin")
 public interface AdminApi {
-    @Operation(
-            summary = "Busca um admin",
-            description = "Recebe um email e uma senha para buscar um admin com essas informações")
-    @ApiResponses({
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Admin encontrado com sucesso",
-                    content =
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ResponseAdminDTO.class))),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "Não foi possivel encontrar o admin",
-                    content =
-                    @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorDTO.class)))
-    })
-    ResponseEntity<ResponseAdminDTO> loginAdmin(RequestAdminDTO requestAdminDTO);
+  @Operation(
+      summary = "Busca um admin",
+      description = "Recebe um email e uma senha para buscar um admin com essas informações")
+  @ApiResponses({
+    @ApiResponse(
+        responseCode = "200",
+        description = "Admin encontrado com sucesso",
+        content =
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ResponseAdminDTO.class))),
+    @ApiResponse(
+        responseCode = "404",
+        description = "Não foi possivel encontrar o admin",
+        content =
+            @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorDTO.class)))
+  })
+  ResponseEntity<ResponseAdminDTO> loginAdmin(RequestAdminDTO requestAdminDTO);
 }
