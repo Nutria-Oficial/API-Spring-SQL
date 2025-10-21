@@ -51,20 +51,24 @@ public class SecurityConfig {
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
 
-    config.setAllowedOrigins(
-        List.of("http://localhost:5173", "https://area-restrita-krae.onrender.com/"));
+    config.setAllowedOrigins(List.of(
+            "http://localhost:5173",
+            "https://area-restrita-krae.onrender.com"
+    ));
 
-    config.setAllowedMethods(List.of("GET"));
-    config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept"));
+    config.setAllowedMethods(List.of("GET", "OPTIONS"));
+
+    // Authorization dispara preflight; aceite qualquer header pedido
+    config.addAllowedHeader(CorsConfiguration.ALL);
+
     config.setExposedHeaders(List.of("Authorization"));
     config.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-    source.registerCorsConfiguration("/admin/**", config);
-
+    source.registerCorsConfiguration("/admin/", config);
     return source;
   }
+
 
   @Bean
   public InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder) {
