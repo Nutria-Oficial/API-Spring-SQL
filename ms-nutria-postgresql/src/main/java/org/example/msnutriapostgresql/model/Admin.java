@@ -1,16 +1,16 @@
 package org.example.msnutriapostgresql.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDate;
 
 @Entity
-public class Usuario {
-
+public class Admin {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ncdusuario")
+  @Column(name = "ncdadmin")
   private Integer id;
 
-  @Column(name = "cnmusuario")
+  @Column(name = "cnmadmin")
   private String nome;
 
   @Column(name = "cemail")
@@ -22,15 +22,14 @@ public class Usuario {
   @Column(name = "ctelefone")
   private String telefone;
 
-  @Column(name = "cempresa")
-  private String empresa;
+  @Column(name = "dnascimento")
+  private LocalDate dataNascimento;
+
+  @Column(name = "ccargo")
+  private String cargo;
 
   @Column(name = "cfoto")
   private String foto;
-
-  // construtor
-
-  public Usuario() {}
 
   // getters e setters
 
@@ -74,12 +73,20 @@ public class Usuario {
     this.telefone = telefone;
   }
 
-  public String getEmpresa() {
-    return empresa;
+  public LocalDate getDataNascimento() {
+    return dataNascimento;
   }
 
-  public void setEmpresa(String empresa) {
-    this.empresa = empresa;
+  public void setDataNascimento(LocalDate dataNascimento) {
+    this.dataNascimento = dataNascimento;
+  }
+
+  public String getCargo() {
+    return cargo;
+  }
+
+  public void setCargo(String cargo) {
+    this.cargo = cargo;
   }
 
   public String getFoto() {

@@ -32,6 +32,7 @@ public class UsuarioService {
           requestUsuarioDTO.foto());
       Usuario usuarioCadastrado = usuarioRepository.findTopByOrderByIdDesc();
       return new ResponseUsuarioDTO(
+          usuarioCadastrado.getId(),
           usuarioCadastrado.getNome(),
           usuarioCadastrado.getEmail(),
           usuarioCadastrado.getSenha(),
@@ -61,6 +62,7 @@ public class UsuarioService {
     }
     Usuario usuario = usuarioEncontrado.get();
     return new ResponseUsuarioDTO(
+        usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
         usuario.getSenha(),
@@ -78,6 +80,7 @@ public class UsuarioService {
     usuario.setNome(nomeDTO.nome());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
+        usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
         usuario.getSenha(),
@@ -95,6 +98,7 @@ public class UsuarioService {
     usuario.setEmail(emailDTO.email());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
+        usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
         usuario.getSenha(),
@@ -112,6 +116,7 @@ public class UsuarioService {
     usuario.setTelefone(telefoneDTO.telefone());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
+        usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
         usuario.getSenha(),
@@ -132,6 +137,7 @@ public class UsuarioService {
     usuario.setSenha(senhaDTO.senhaNova());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
+        usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
         usuario.getSenha(),
@@ -149,6 +155,7 @@ public class UsuarioService {
     usuario.setEmpresa(empresaDTO.empresa());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
+        usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
         usuario.getSenha(),
@@ -166,6 +173,7 @@ public class UsuarioService {
     usuario.setFoto(fotoDTO.foto());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
+        usuario.getId(),
         usuario.getNome(),
         usuario.getEmail(),
         usuario.getSenha(),
