@@ -19,6 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
   private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
   public SecurityConfig(CustomAccessDeniedHandler customAccessDeniedHandler) {
@@ -28,12 +29,13 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        // 🔹 Ativa CORS e vincula a configuração personalizada
+        // Habilita CORS com a configuração customizada abaixo
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(
-            authorize ->
-                authorize
+            auth ->
+                auth.requestMatchers("/admin/login")
+                    .permitAll()
                     .requestMatchers("/admin/**")
                     .hasRole("NUTRIA_ADMIN")
                     .requestMatchers("/usuarios/**")
@@ -46,29 +48,23 @@ public class SecurityConfig {
     return http.build();
   }
 
-  // cors apenas para admin para usar no navegador
+  // CORS configurado para permitir React (localhost e Render)
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration config = new CorsConfiguration();
 
-    config.setAllowedOrigins(List.of(
-            "http://localhost:5173",
-            "https://area-restrita-krae.onrender.com"
-    ));
-
-    config.setAllowedMethods(List.of("GET", "OPTIONS"));
-
-    // Authorization dispara preflight; aceite qualquer header pedido
-    config.addAllowedHeader(CorsConfiguration.ALL);
-
+    config.setAllowedOrigins(
+        List.of("http://localhost:5173", "https://area-restrita-krae.onrender.com"));
+    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    config.setAllowedHeaders(List.of("*"));
     config.setExposedHeaders(List.of("Authorization"));
     config.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/admin/", config);
+    // CORS global — cobre todos os endpoints
+    source.registerCorsConfiguration("/**", config);
     return source;
   }
-
 
   @Bean
   public InMemoryUserDetailsManager inMemoryUserDetailsManager(PasswordEncoder passwordEncoder) {
@@ -77,11 +73,13 @@ public class SecurityConfig {
             .password(passwordEncoder.encode("nutriaAdmin123"))
             .roles("NUTRIA_ADMIN")
             .build();
+
     UserDetails user =
         User.withUsername("nutria")
             .password(passwordEncoder.encode("nutria123"))
             .roles("NUTRIA")
             .build();
+
     return new InMemoryUserDetailsManager(admin, user);
   }
 
