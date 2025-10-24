@@ -32,5 +32,5 @@ public interface AdminApi {
                 mediaType = "application/json",
                 schema = @Schema(implementation = ErrorDTO.class)))
   })
-  ResponseEntity<ResponseAdminDTO> loginAdmin(RequestAdminDTO requestAdminDTO);
+  ResponseEntity<ResponseAdminDTO> loginAdmin(String email, String senha);
 }

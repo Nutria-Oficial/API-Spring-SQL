@@ -17,9 +17,11 @@ public class AdminController implements AdminApi {
     this.adminService = adminService;
   }
 
-  @Override
   @GetMapping("/login")
-  public ResponseEntity<ResponseAdminDTO> loginAdmin(@PathVariable RequestAdminDTO requestAdminDTO) {
+  public ResponseEntity<ResponseAdminDTO> loginAdmin(
+          @RequestParam String email,
+          @RequestParam String senha) {
+    RequestAdminDTO requestAdminDTO = new RequestAdminDTO(email, senha);
     ResponseAdminDTO responseAdminDTO = adminService.loginAdmin(requestAdminDTO);
     return new ResponseEntity<>(responseAdminDTO, HttpStatus.OK);
   }
