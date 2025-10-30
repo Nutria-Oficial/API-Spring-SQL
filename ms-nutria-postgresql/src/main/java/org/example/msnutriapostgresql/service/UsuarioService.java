@@ -24,12 +24,12 @@ public class UsuarioService {
   public ResponseUsuarioDTO cadastrarUsuario(RequestUsuarioDTO requestUsuarioDTO) {
     try {
       usuarioRepository.adicionarUsuario(
-          requestUsuarioDTO.nome(),
-          requestUsuarioDTO.email(),
-          requestUsuarioDTO.senha(),
-          requestUsuarioDTO.telefone(),
-          requestUsuarioDTO.empresa(),
-          requestUsuarioDTO.foto());
+          requestUsuarioDTO.getNome(),
+          requestUsuarioDTO.getEmail(),
+          requestUsuarioDTO.getSenha(),
+          requestUsuarioDTO.getTelefone(),
+          requestUsuarioDTO.getEmpresa(),
+          requestUsuarioDTO.getFoto());
       Usuario usuarioCadastrado = usuarioRepository.findTopByOrderByIdDesc();
       return new ResponseUsuarioDTO(
           usuarioCadastrado.getId(),
@@ -77,7 +77,7 @@ public class UsuarioService {
       throw new NotFoundException("Usuário não encontrado");
     }
     Usuario usuario = usuarioEncontrado.get();
-    usuario.setNome(nomeDTO.nome());
+    usuario.setNome(nomeDTO.getNome());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
         usuario.getId(),
@@ -95,7 +95,7 @@ public class UsuarioService {
       throw new NotFoundException("Usuário não encontrado");
     }
     Usuario usuario = usuarioEncontrado.get();
-    usuario.setEmail(emailDTO.email());
+    usuario.setEmail(emailDTO.getEmail());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
         usuario.getId(),
@@ -113,7 +113,7 @@ public class UsuarioService {
       throw new NotFoundException("Usuário não encontrado");
     }
     Usuario usuario = usuarioEncontrado.get();
-    usuario.setTelefone(telefoneDTO.telefone());
+    usuario.setTelefone(telefoneDTO.getTelefone());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
         usuario.getId(),
@@ -130,11 +130,11 @@ public class UsuarioService {
     if (usuarioEncontrado.isEmpty()) {
       throw new NotFoundException("Usuário não encontrado");
     }
-    if (Objects.equals(senhaDTO.senhaAntiga(), senhaDTO.senhaNova())) {
+    if (Objects.equals(senhaDTO.getSenhaAntiga(), senhaDTO.getSenhaNova())) {
       throw new DuplicateException("A nova senha deve ser diferente da antiga");
     }
     Usuario usuario = usuarioEncontrado.get();
-    usuario.setSenha(senhaDTO.senhaNova());
+    usuario.setSenha(senhaDTO.getSenhaNova());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
         usuario.getId(),
@@ -152,7 +152,7 @@ public class UsuarioService {
       throw new NotFoundException("Usuário não encontrado");
     }
     Usuario usuario = usuarioEncontrado.get();
-    usuario.setEmpresa(empresaDTO.empresa());
+    usuario.setEmpresa(empresaDTO.getEmpresa());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
         usuario.getId(),
@@ -170,7 +170,7 @@ public class UsuarioService {
       throw new NotFoundException("Usuário não encontrado");
     }
     Usuario usuario = usuarioEncontrado.get();
-    usuario.setFoto(fotoDTO.foto());
+    usuario.setFoto(fotoDTO.getFoto());
     usuarioRepository.save(usuario);
     return new ResponseUsuarioDTO(
         usuario.getId(),

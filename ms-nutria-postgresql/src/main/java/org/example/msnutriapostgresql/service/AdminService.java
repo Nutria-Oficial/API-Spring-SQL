@@ -19,9 +19,9 @@ public class AdminService {
   }
 
   public ResponseAdminDTO loginAdmin(RequestAdminDTO requestAdminDTO) {
-    Optional<Admin> adminEncontrado = adminRepository.findByEmail(requestAdminDTO.email());
+    Optional<Admin> adminEncontrado = adminRepository.findByEmail(requestAdminDTO.getEmail());
     if (adminEncontrado.isEmpty()
-        || !adminEncontrado.get().getSenha().equals(requestAdminDTO.senha())) {
+        || !adminEncontrado.get().getSenha().equals(requestAdminDTO.getSenha())) {
       throw new NotFoundException("Usuário ou senha incorretos");
     }
 
