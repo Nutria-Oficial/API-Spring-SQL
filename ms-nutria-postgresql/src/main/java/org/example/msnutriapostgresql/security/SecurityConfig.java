@@ -1,5 +1,9 @@
 package org.example.msnutriapostgresql.security;
 
+// Padrão de projeto utilizado: Factory Method
+// Estamos usando ele nos métodos anotados com @Bean para que o Spring crie e gerencie automaticamente instâncias configuradas de objetos,
+// como SecurityFilterChain e CorsConfigurationSource, permitindo que elas sejam injetadas em outras partes da aplicação
+
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
